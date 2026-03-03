@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react'
 import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, Cell } from 'recharts'
 import { AlertTriangle, TrendingUp, TrendingDown, Minus, Clock, Users, Brain, Activity } from 'lucide-react'
-import { GoogleGenAI } from '@google/genai'
 
 const SUPABASE_URL = 'https://rauweyruhjficjnpkcjo.supabase.co'
 const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJhdXdleXJ1aGpmaWNqbnBrY2pvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjU5OTMyNTIsImV4cCI6MjA4MTU2OTI1Mn0.Ociw-ygIY4lGgpniCZvQFOMPjmHwSZAK5Wqaj65Fzp0'
@@ -86,19 +85,17 @@ export default function App() {
 
   useEffect(() => {
     if (departments.length === 0) return
-    const apiKey = import.meta.env.VITE_GEMINI_API_KEY
-    if (!apiKey) return
     setGeminiLoading(true)
-    const ai = new GoogleGenAI({ apiKey })
     const deptSummary = departments.map(d => `${d.name}: ${d.adoption_rate}% (${d.trend}, risk: ${d.risk_level}${d.flag_reason ? ', ' + d.flag_reason : ''})`).join('\n')
     const alertSummary = alerts.filter(a => !a.resolved).slice(0, 5).map(a => `[${a.severity}] ${a.department}: ${a.message}`).join('\n')
     const prompt = `You are advising Houston Methodist Hospital leadership. Based on this AI adoption data, identify the SINGLE most important intervention this week. Be specific (name the department, the action, the expected outcome). Keep response under 120 words.
 
 DEPARTMENTS:\n${deptSummary}\n\nACTIVE ALERTS:\n${alertSummary}`
 
-    ai.models.generateContent({ model: 'gemini-2.0-flash', contents: prompt })
-      .then(res => setGeminiInsight(res.text ?? ''))
-      .catch(() => setGeminiInsight('Insight unavailable — check Gemini API key.'))
+    fetch('/api/ai', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ prompt }) })
+      .then(r => r.json())
+      .then(data => setGeminiInsight(data.text ?? ''))
+      .catch(() => setGeminiInsight('Insight unavailable.'))
       .finally(() => setGeminiLoading(false))
   }, [departments, alerts])
 
