@@ -49,13 +49,13 @@ function timeAgo(dateStr: string) {
 }
 
 function TrendIcon({ trend }: { trend: string }) {
-  if (trend === 'rising') return <TrendingUp size={14} style={{ color: '#C9A84C', display: 'inline' }} />
+  if (trend === 'rising') return <TrendingUp size={14} style={{ color: '#1D4ED8', display: 'inline' }} />
   if (trend === 'declining') return <TrendingDown size={14} style={{ color: '#ef4444', display: 'inline' }} />
-  return <Minus size={14} style={{ color: '#555555', display: 'inline' }} />
+  return <Minus size={14} style={{ color: '#64748B', display: 'inline' }} />
 }
 
 function adoptionColor(rate: number) {
-  if (rate >= 80) return '#C9A84C'
+  if (rate >= 80) return '#1D4ED8'
   if (rate >= 50) return '#d97706'
   return '#ef4444'
 }
@@ -106,8 +106,8 @@ DEPARTMENTS:\n${deptSummary}\n\nACTIVE ALERTS:\n${alertSummary}`
   const atRisk = departments.filter(d => d.risk_level === 'high').length
   const sorted = [...departments].sort((a, b) => b.adoption_rate - a.adoption_rate)
 
-  const gold = '#C9A84C'
-  const card = { backgroundColor: '#111111', border: '1px solid #1A1A1A' }
+  const gold = '#1D4ED8'
+  const card = { backgroundColor: '#FFFFFF', border: '1px solid #F1F5F9' }
   const sectionHeader = {
     color: '#F5F5F5',
     fontFamily: 'Inter, sans-serif',
@@ -119,19 +119,19 @@ DEPARTMENTS:\n${deptSummary}\n\nACTIVE ALERTS:\n${alertSummary}`
   }
 
   return (
-    <div style={{ backgroundColor: '#080808', minHeight: '100vh', padding: '16px', maxWidth: '480px', margin: '0 auto' }}>
+    <div style={{ backgroundColor: '#F8FAFC', minHeight: '100vh', padding: '16px', maxWidth: '480px', margin: '0 auto' }}>
       {/* Header */}
       <div style={{ marginBottom: '20px' }}>
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
           <div>
-            <h1 style={{ fontFamily: 'Playfair Display, serif', color: gold, fontSize: '22px', fontWeight: 600, margin: 0 }}>
+            <h1 style={{ fontFamily: 'Inter, serif', color: gold, fontSize: '22px', fontWeight: 600, margin: 0 }}>
               HOUSTON METHODIST
             </h1>
-            <p style={{ color: '#AAAAAA', fontSize: '13px', margin: '2px 0 0 0' }}>AI Adoption Intelligence</p>
+            <p style={{ color: '#475569', fontSize: '13px', margin: '2px 0 0 0' }}>AI Adoption Intelligence</p>
           </div>
           <div style={{ textAlign: 'right' }}>
-            <p style={{ color: '#555555', fontSize: '9px', margin: 0 }}>Center for Innovation</p>
-            <p style={{ color: '#555555', fontSize: '9px', margin: 0 }}>Ion District Demo</p>
+            <p style={{ color: '#64748B', fontSize: '9px', margin: 0 }}>Center for Innovation</p>
+            <p style={{ color: '#64748B', fontSize: '9px', margin: 0 }}>Ion District Demo</p>
             <p style={{ color: gold, fontSize: '11px', margin: '4px 0 0 0', fontVariantNumeric: 'tabular-nums' }}>
               {clock.toLocaleTimeString()}
             </p>
@@ -163,7 +163,7 @@ DEPARTMENTS:\n${deptSummary}\n\nACTIVE ALERTS:\n${alertSummary}`
         ].map((m, i) => (
           <div key={i} style={{ ...card, padding: '14px' }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '8px' }}>
-              <span style={{ color: '#555555', fontSize: '9px', textTransform: 'uppercase', letterSpacing: '0.1em' }}>{m.label}</span>
+              <span style={{ color: '#64748B', fontSize: '9px', textTransform: 'uppercase', letterSpacing: '0.1em' }}>{m.label}</span>
               {m.icon}
             </div>
             <p style={{ color: m.gold ? gold : m.red ? '#ef4444' : '#F5F5F5', fontSize: '28px', fontWeight: 600, margin: 0, fontFamily: 'Inter, sans-serif' }}>{m.value}</p>
@@ -181,9 +181,9 @@ DEPARTMENTS:\n${deptSummary}\n\nACTIVE ALERTS:\n${alertSummary}`
             <ResponsiveContainer width="100%" height={sorted.length * 36}>
               <BarChart data={sorted} layout="vertical" margin={{ left: 0, right: 40, top: 0, bottom: 0 }}>
                 <XAxis type="number" domain={[0, 100]} hide />
-                <YAxis type="category" dataKey="name" width={110} tick={{ fill: '#AAAAAA', fontSize: 11 }} axisLine={false} tickLine={false} />
+                <YAxis type="category" dataKey="name" width={110} tick={{ fill: '#475569', fontSize: 11 }} axisLine={false} tickLine={false} />
                 <Tooltip
-                  contentStyle={{ backgroundColor: '#111', border: '1px solid #1A1A1A', color: '#F5F5F5', fontSize: '12px' }}
+                  contentStyle={{ backgroundColor: '#111', border: '1px solid #F1F5F9', color: '#F5F5F5', fontSize: '12px' }}
                   formatter={(val) => val !== undefined ? [`${val}%`, "Adoption"] : ["—", "Adoption"]}
                 />
                 <Bar dataKey="adoption_rate" radius={0}>
@@ -199,7 +199,7 @@ DEPARTMENTS:\n${deptSummary}\n\nACTIVE ALERTS:\n${alertSummary}`
             {[{ color: gold, label: '>80% On track' }, { color: '#d97706', label: '50-80% Watch' }, { color: '#ef4444', label: '<50% At risk' }].map(l => (
               <div key={l.label} style={{ display: 'flex', alignItems: 'center', gap: '5px' }}>
                 <div style={{ width: 10, height: 10, backgroundColor: l.color }} />
-                <span style={{ color: '#555555', fontSize: '10px' }}>{l.label}</span>
+                <span style={{ color: '#64748B', fontSize: '10px' }}>{l.label}</span>
               </div>
             ))}
           </div>
@@ -225,13 +225,13 @@ DEPARTMENTS:\n${deptSummary}\n\nACTIVE ALERTS:\n${alertSummary}`
                   </p>
                   <div style={{ display: 'flex', alignItems: 'center', gap: '4px', justifyContent: 'flex-end', marginTop: '3px' }}>
                     <TrendIcon trend={d.trend} />
-                    <span style={{ fontSize: '10px', color: d.trend === 'rising' ? gold : d.trend === 'declining' ? '#ef4444' : '#555555' }}>
+                    <span style={{ fontSize: '10px', color: d.trend === 'rising' ? gold : d.trend === 'declining' ? '#ef4444' : '#64748B' }}>
                       {d.trend}
                     </span>
                   </div>
                 </div>
               </div>
-              <div style={{ display: 'flex', gap: '16px', fontSize: '11px', color: '#555555', marginBottom: d.flag_reason ? '8px' : 0 }}>
+              <div style={{ display: 'flex', gap: '16px', fontSize: '11px', color: '#64748B', marginBottom: d.flag_reason ? '8px' : 0 }}>
                 <span>{d.staff_count} staff</span>
                 <span>{d.docs_hours_saved} hrs saved/mo</span>
                 <span>Trained: {d.last_training ? new Date(d.last_training).toLocaleDateString('en-US', { month: 'short', day: 'numeric' }) : 'N/A'}</span>
@@ -251,19 +251,19 @@ DEPARTMENTS:\n${deptSummary}\n\nACTIVE ALERTS:\n${alertSummary}`
         <p style={{ ...sectionHeader, marginBottom: '12px' }}>Active Alerts</p>
         <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
           {unresolved.length === 0 ? (
-            <p style={{ color: '#555555', fontSize: '13px', padding: '12px' }}>No active alerts</p>
+            <p style={{ color: '#64748B', fontSize: '13px', padding: '12px' }}>No active alerts</p>
           ) : unresolved.map(a => (
             <div key={a.id} style={{
               ...card,
               padding: '10px 14px',
-              borderLeft: `3px solid ${a.severity === 'critical' ? '#ef4444' : a.severity === 'warning' ? '#d97706' : '#555555'}`,
-              backgroundColor: a.severity === 'critical' ? '#0d0404' : '#111111',
+              borderLeft: `3px solid ${a.severity === 'critical' ? '#ef4444' : a.severity === 'warning' ? '#d97706' : '#64748B'}`,
+              backgroundColor: a.severity === 'critical' ? '#0d0404' : '#FFFFFF',
             }}>
               <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '3px' }}>
                 <span style={{ color: '#F5F5F5', fontSize: '12px', fontWeight: 500 }}>{a.department}</span>
-                <span style={{ color: '#555555', fontSize: '10px' }}>{timeAgo(a.created_at)}</span>
+                <span style={{ color: '#64748B', fontSize: '10px' }}>{timeAgo(a.created_at)}</span>
               </div>
-              <p style={{ color: '#AAAAAA', fontSize: '12px', margin: 0 }}>{a.message}</p>
+              <p style={{ color: '#475569', fontSize: '12px', margin: 0 }}>{a.message}</p>
             </div>
           ))}
         </div>
@@ -276,17 +276,17 @@ DEPARTMENTS:\n${deptSummary}\n\nACTIVE ALERTS:\n${alertSummary}`
             ◆ AI INSIGHT — Gemini
           </p>
           {geminiLoading ? (
-            <p style={{ color: '#555555', fontSize: '13px' }}>Analyzing adoption patterns…</p>
+            <p style={{ color: '#64748B', fontSize: '13px' }}>Analyzing adoption patterns…</p>
           ) : geminiInsight ? (
             <p style={{ color: '#F5F5F5', fontSize: '13px', lineHeight: 1.6, margin: 0 }}>{geminiInsight}</p>
           ) : (
-            <p style={{ color: '#555555', fontSize: '13px' }}>Insight will appear once data loads.</p>
+            <p style={{ color: '#64748B', fontSize: '13px' }}>Insight will appear once data loads.</p>
           )}
         </div>
       </div>
 
       {/* Footer */}
-      <p style={{ color: '#333333', fontSize: '10px', textAlign: 'center' }}>
+      <p style={{ color: '#94A3B8', fontSize: '10px', textAlign: 'center' }}>
         Powered by Sloe Labs · Real-time Houston Methodist sensor data
       </p>
     </div>
